@@ -4752,11 +4752,6 @@ namespace MobileAppAPI.Controllers
 
 
 
-
-
-
-
-
         [HttpPost]
         [Route("MaterialRequistion_Insert_Update")]
         public async Task<ActionResult<ERP>> MaterialRequistion_Insert_Update(dynamic data)
@@ -6510,5 +6505,556 @@ namespace MobileAppAPI.Controllers
     }
     return JSONString.ToString();
 }
+
+        //sang InterLocationTransfer Save
+
+
+        [HttpPost]
+        [Route("InterLocationTransfer_Insert_Update")]
+        public async Task<ActionResult<ERP>> InterLocationTransfer_Insert_Update(ERP data)
+        {
+            string status = ""; string ChkRelease = ""; string branch_to = ""; string branch_id = ""; string FUNCTION_ID = ""; string itrfid = "";
+            string btnSave = ""; string itrf_id = ""; string itrf_ref = ""; string isconfig = ""; string itrf_date = ""; string trf_mode = ""; string remarks = ""; string IPADDRESS = ""; string CREATED_BY = ""; string LST_UPD_BY = "";string itrfid1 = "";string LST_UPD_ON = "";string Outputval = "";
+
+
+            string function_id = ""; string ITEM_QTY = ""; string remarkss = ""; string statuss = ""; string created_by = "";
+            string created_on = ""; string lst_upd_by = ""; string lst_upd_on = ""; string ipaddress = ""; string branch_ids = "";
+            string item_detailed_description = "";
+            int id = 0;
+            int dt = 2;
+            int dt1 = 1;
+            int i = 0;
+            int inew = 0;
+            string itemFromFlag = "";
+            string strMessage = "";
+            string ItrfTransferNo = "";
+            DataRow row = null;
+            int id1 = 1;
+            int dtb = 1;
+            DataSet dsInterLocationTransfer = new DataSet();
+            DataSet dstILTMaster = new DataSet();
+            DataSet dsStockUpdation = new DataSet();
+            CultureInfo objCulture;
+            string culture = "";
+            ArrayList err = new ArrayList();
+            DataSet ds1 = new DataSet();
+            DataSet dsBranch = new DataSet();
+            string strMode = "";
+            string type = "InterLocationTransfer";
+            string itrfno = "";
+            //string LST_UPD_BY = "";
+            string BRANCH_ID = "";
+            string ILT_ID = "";
+
+
+            string pk_column_name1 = string.Empty;
+
+            string pk_column_name2 = string.Empty;
+
+            string pk_column_name3 = string.Empty;
+
+            string pk_column_name4 = string.Empty;
+
+            string pk_column_name5 = string.Empty;
+
+
+            string STATUS_COLUMN = string.Empty;
+
+            try
+            {
+
+
+                using (SqlConnection dbConn = new SqlConnection(strconn))
+                {
+
+
+
+                    var serializedObject = JsonConvert.SerializeObject(data).ToString();
+
+
+                    var obj = JsonConvert.DeserializeObject<JObject>(data.ToString());
+
+
+                    JObject obj1 = JsonConvert.DeserializeObject<JObject>(data.ToString());
+
+
+
+
+
+                    JObject obj_parent = JsonConvert.DeserializeObject<JObject>(data.ToString());
+
+                    JObject obj_parent1 = obj_parent.GetValue("MasterInterlocation")[0] as JObject;
+
+
+                    foreach (KeyValuePair<string, JToken> item in obj_parent1)
+                    {
+                        JProperty p1 = obj_parent1.Property(item.Key);
+
+
+                        if (item.Key == "itrf_id")
+                        {
+                            itrf_id = item.Value.ToString();
+                        }
+
+                        if (btnSave != "Initiate")
+                        {
+
+                            dbConn.Open();
+
+                            string query = "";
+                            query = "select max(ILT_ID) as maxid from ERP_ILT_MASTER";
+
+                            SqlCommand cmd = new SqlCommand(query, dbConn);
+                            var reader = cmd.ExecuteReader();
+                            System.Data.DataTable results = new System.Data.DataTable();
+                            results.Load(reader);
+
+                            for (int k = 0; k < results.Rows.Count; k++)
+                            {
+                                DataRow row1 = results.Rows[k];
+                                itrfid = row1[0].ToString() + 1;
+                            }
+
+                            dbConn.Close();
+                        }
+
+
+                        if (item.Key == "FUNCTION_ID")
+                        {
+                            FUNCTION_ID = item.Value.ToString();
+                        }
+                        if (item.Key == "branch_id")
+                        {
+                            branch_id = item.Value.ToString();
+                        }
+                        if (item.Key == "branch_to")
+                        {
+                            branch_to = item.Value.ToString();
+
+                        }
+
+                        if (ChkRelease == "true")
+                        {
+                            if (item.Key == "status")
+                            {
+                                status = "P";
+                            }
+
+                        }
+
+
+
+                        if (status != "" && status != null)
+                        {
+                            if (status == "D")
+                            {
+                                if (item.Key == "status")
+                                {
+                                    status = item.Value.ToString();
+
+                                }
+                            }
+                            else
+                            {
+                                if (item.Key == "status")
+                                {
+                                    status = item.Value.ToString();
+
+                                }
+                            }
+                        }
+                        if (item.Key == "itrf_ref")
+                        {
+                            itrf_ref = item.Value.ToString();
+
+                        }
+
+
+
+                        if (item.Key == "itrf_date")
+                        {
+                            itrf_date = item.Value.ToString();
+                        }
+                        if (item.Key == "trf_mode")
+                        {
+                            trf_mode = item.Value.ToString();
+                        }
+                        trf_mode = "Intra";
+
+                        if (item.Key == "remarks")
+                        {
+                            remarks = item.Value.ToString();
+                        }
+                        if (item.Key == "IPADDRESS")
+                        {
+                            IPADDRESS = item.Value.ToString();
+                        }
+                        if (item.Key == "CREATED_BY")
+                        {
+                            CREATED_BY = item.Value.ToString();
+                        }
+                        if (item.Key == "LST_UPD_BY")
+                        {
+                            LST_UPD_BY = item.Value.ToString();
+                        }
+
+
+                        if (FUNCTION_ID != "")
+                        {
+                            if (itrf_ref == "")
+                            {
+
+                                if (btnSave != "Initiate")
+                                {
+                                    DataSet dsmrscode = new DataSet();
+                                    string sqlmrscode = "ERP_PRS_ISCONFIG";
+                                    SqlCommand cmdmrscode = new SqlCommand(sqlmrscode, dbConn);
+
+
+                                    cmdmrscode.CommandType = CommandType.StoredProcedure;
+
+                                    cmdmrscode.Parameters.AddWithValue("@FUNCTIONID", FUNCTION_ID);
+                                    cmdmrscode.Parameters.AddWithValue("@TYPE", "InterLocationTransfer");
+
+                                    cmdmrscode.ExecuteNonQuery();
+                                    var mrscodereader = cmdmrscode.ExecuteReader();
+                                    System.Data.DataTable resultsmrscode = new System.Data.DataTable();
+                                    resultsmrscode.Load(mrscodereader);
+                                    //string outputval = cmd1.Parameters["@outputparam"].Value.ToString();
+                                    for (int l = 0; l < resultsmrscode.Rows.Count; l++)
+                                    {
+                                        DataRow rowmrscode = resultsmrscode.Rows[l];
+                                        isconfig = rowmrscode[0].ToString();
+
+
+                                    }
+
+                                    itrf_ref = isconfig;
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            itrf_ref = isconfig;
+                        }
+
+
+                        if (btnSave != "Initiate")
+                        {
+
+
+                            if (FUNCTION_ID == "" && FUNCTION_ID == "0" && BRANCH_ID == "" && BRANCH_ID == "0" && ILT_ID == "" && ILT_ID == "0")
+                            {
+
+                                DataSet dsuserdetails1 = new DataSet();
+                                string sql1 = "ERP_ILT_INSERT";
+                                SqlCommand objcommand = new SqlCommand(sql1, dbConn);
+
+
+                                objcommand.CommandType = CommandType.StoredProcedure;
+                                objcommand.Parameters.AddWithValue("@function_id", FUNCTION_ID);
+                                objcommand.Parameters.AddWithValue("@branch_id", branch_id);
+                                objcommand.Parameters.AddWithValue("@branch_to", branch_to.ToString());
+
+                                objcommand.Parameters.AddWithValue("@ILT_REF", itrf_ref);
+                                objcommand.Parameters.AddWithValue("@ILT_DATE", itrf_date);
+                                objcommand.Parameters.AddWithValue("@ILT_MODE", trf_mode);
+                                objcommand.Parameters.AddWithValue("@remarks", remarks);
+                                objcommand.Parameters.AddWithValue("@status", status);
+                                objcommand.Parameters.AddWithValue("@created_by", CREATED_BY);
+                                objcommand.Parameters.AddWithValue("@created_on", "");
+                                objcommand.Parameters.AddWithValue("@lst_upd_by", LST_UPD_BY);
+                                objcommand.Parameters.AddWithValue("@lst_upd_on", LST_UPD_ON);
+
+                                objcommand.Parameters.AddWithValue("@ipaddress", IPADDRESS);
+                                var reader1 = objcommand.ExecuteReader();
+                                System.Data.DataTable results1 = new System.Data.DataTable();
+                                results1.Load(reader1);
+
+                                //for (int i = 0; i < results1.Rows.Count; i++)
+                                //{
+                                //    DataRow row1 = results1.Rows[i];
+                                //    itrf_id = row1[0].ToString();
+
+
+                                //}
+                                if (Outputval != string.Empty)
+                                {
+                                    Outputval = "Inserted successfully";
+
+                                }
+
+                                dbConn.Close();
+                            }
+                            else
+                            {
+                                DataSet dsuserdetails1 = new DataSet();
+                                string sql1 = "ERP_ILT_UPDATE";
+                                SqlCommand objcommand = new SqlCommand(sql1, dbConn);
+
+
+                                objcommand.CommandType = CommandType.StoredProcedure;
+                                objcommand.Parameters.AddWithValue("@function_id", FUNCTION_ID);
+                                objcommand.Parameters.AddWithValue("@branch_id", branch_id);
+                                objcommand.Parameters.AddWithValue("@branch_to", branch_to.ToString());
+
+                                objcommand.Parameters.AddWithValue("@ILT_REF", itrf_ref);
+                                objcommand.Parameters.AddWithValue("@ILT_DATE", itrf_date);
+                                objcommand.Parameters.AddWithValue("@ILT_MODE", trf_mode);
+                                objcommand.Parameters.AddWithValue("@remarks", remarks);
+                                objcommand.Parameters.AddWithValue("@status", status);
+                                objcommand.Parameters.AddWithValue("@lst_upd_on", LST_UPD_ON);
+                                objcommand.Parameters.AddWithValue("@ipaddress", IPADDRESS);
+
+                                objcommand.Parameters.AddWithValue("@lst_upd_by", LST_UPD_BY);
+                                objcommand.Parameters.AddWithValue("@ILT_ID", itrf_id);
+
+
+                                //var reader2 = objcommand.ExecuteReader();
+                                //System.Data.DataTable results2 = new System.Data.DataTable();
+                                //results2.Load(reader2);
+                                //Outputval = results2.ToString();
+
+                                var reader1 = objcommand.ExecuteReader();
+                                System.Data.DataTable results1 = new System.Data.DataTable();
+                                results1.Load(reader1);
+
+                                for (int m = 0; m < results1.Rows.Count; m++)
+                                {
+                                    DataRow rowm = results1.Rows[i];
+                                    itrf_id = rowm[0].ToString();
+
+
+                                }
+                                if (Outputval != string.Empty)
+                                {
+                                    Outputval = "Updated successfully";
+
+                                }
+                                //var result = (new { logdata });
+                                //return Ok(stroutput);
+                                dbConn.Close();
+                            }
+
+
+
+
+
+                        }
+
+
+                    }
+
+
+                    if (itrf_id == "")
+                    {
+                        //getInterLocationMaster();
+                        //btnSave.Text = "Save";
+                    }
+
+
+
+
+                    var serializedObjects = JsonConvert.SerializeObject(data).ToString();
+
+
+                    var objs = JsonConvert.DeserializeObject<JObject>(data.ToString());
+
+
+                    JObject obj1s = JsonConvert.DeserializeObject<JObject>(data.ToString());
+
+
+
+
+
+                    JObject obj_parents = JsonConvert.DeserializeObject<JObject>(data.ToString());
+
+                    JObject obj_parent1s = obj_parent.GetValue("DetailsInterlocation")[0] as JObject;
+                    string flag = "";
+
+                    foreach (KeyValuePair<string, JToken> item in obj_parent1s)
+                    {
+                        JProperty p1 = obj_parent1.Property(item.Key);
+
+
+                        if (item.Key == "itrf_id")
+                        {
+                            itrf_id = item.Value.ToString();
+                        }
+
+
+
+
+
+                        if (item.Key == "function_id")
+                        {
+                            function_id = item.Value.ToString();
+                        }
+
+                        if (item.Key == "ITEM_QTY")
+                        {
+                            ITEM_QTY = item.Value.ToString();
+                        }
+
+                        if (item.Key == "remarkss")
+                        {
+                            remarkss = item.Value.ToString();
+                        }
+
+                        if (item.Key == "statuss")
+                        {
+                            statuss = item.Value.ToString();
+                        }
+
+                        if (item.Key == "created_by")
+                        {
+                            created_by = item.Value.ToString();
+                        }
+
+                        if (item.Key == "created_on")
+                        {
+                            created_on = item.Value.ToString();
+                        }
+                        if (item.Key == "lst_upd_by")
+                        {
+                            created_by = item.Value.ToString();
+                        }
+
+                        if (item.Key == "lst_upd_on")
+                        {
+                            created_on = item.Value.ToString();
+                        }
+
+                        if (item.Key == "ipaddress")
+                        {
+                            ipaddress = item.Value.ToString();
+                        }
+                        if (item.Key == "branch_ids")
+                        {
+                            branch_ids = item.Value.ToString();
+                        }
+                        if (item.Key == "item_detailed_description")
+                        {
+                            item_detailed_description = item.Value.ToString();
+                        }
+
+
+
+                        if (item.Key == "flag")
+                        {
+                            flag = item.Value.ToString();
+                        }
+
+                        if (flag == "N")
+
+                        {
+
+
+                            DataSet dsuserdetails1 = new DataSet();
+                            string sql1 = "ERP_ILT_DETAILS_INSERT";
+                            SqlCommand objcommand = new SqlCommand(sql1, dbConn);
+
+
+                            objcommand.CommandType = CommandType.StoredProcedure;
+                            objcommand.Parameters.AddWithValue("@ILT_ID", itrf_id);
+                            objcommand.Parameters.AddWithValue("@function_id", function_id);
+                            objcommand.Parameters.AddWithValue(",@ITEM_QTY", ITEM_QTY);
+
+                            objcommand.Parameters.AddWithValue("@remarks", remarkss);
+                            objcommand.Parameters.AddWithValue("@status", statuss);
+                            objcommand.Parameters.AddWithValue("@created_by", created_by);
+                            objcommand.Parameters.AddWithValue("@created_on", created_on);
+                            objcommand.Parameters.AddWithValue("@lst_upd_by", lst_upd_by);
+                            objcommand.Parameters.AddWithValue("@lst_upd_on", lst_upd_on);
+                            objcommand.Parameters.AddWithValue("@ipaddress", ipaddress);
+                            objcommand.Parameters.AddWithValue("@branch_id", branch_ids);
+                            objcommand.Parameters.AddWithValue("@item_detailed_description", item_detailed_description);
+
+
+                            var reader1 = objcommand.ExecuteReader();
+                            System.Data.DataTable results1 = new System.Data.DataTable();
+                            results1.Load(reader1);
+
+
+                            if (Outputval != string.Empty)
+                            {
+                                Outputval = "Inserted successfully";
+
+                            }
+
+                            dbConn.Close();
+                        }
+                        if (flag == "U")
+                        {
+                            //itrfid = row["itrf_id"].ToString();
+                            if (function_id == "" && function_id == "0" && branch_ids == "" && branch_ids == "0" && itrf_id == "" && itrf_id == "0")
+                            {
+                                DataSet dsuserdetails1 = new DataSet();
+                                string sql1 = "ERP_ILT_DETAILS_INSERT";
+                                SqlCommand objcommand = new SqlCommand(sql1, dbConn);
+
+
+                                objcommand.CommandType = CommandType.StoredProcedure;
+                                objcommand.Parameters.AddWithValue("@ILT_ID", itrf_id);
+                                objcommand.Parameters.AddWithValue("@function_id", function_id);
+                                objcommand.Parameters.AddWithValue(",@ITEM_QTY", ITEM_QTY);
+
+                                objcommand.Parameters.AddWithValue("@remarks", remarkss);
+                                objcommand.Parameters.AddWithValue("@status", statuss);
+                                objcommand.Parameters.AddWithValue("@created_by", created_by);
+                                objcommand.Parameters.AddWithValue("@created_on", created_on);
+                                objcommand.Parameters.AddWithValue("@lst_upd_by", lst_upd_by);
+                                objcommand.Parameters.AddWithValue("@lst_upd_on", lst_upd_on);
+                                objcommand.Parameters.AddWithValue("@ipaddress", ipaddress);
+                                objcommand.Parameters.AddWithValue("@branch_id", branch_ids);
+                                objcommand.Parameters.AddWithValue("@item_detailed_description", item_detailed_description);
+
+
+                                var reader1 = objcommand.ExecuteReader();
+                                System.Data.DataTable results1 = new System.Data.DataTable();
+                                results1.Load(reader1);
+
+
+                                if (Outputval != string.Empty)
+                                {
+                                    Outputval = "Updated successfully";
+
+                                }
+
+                                dbConn.Close();
+                            }
+
+
+                        }
+                    }
+                    //if (strSql != "")
+                    //{
+                    //    string id = objSql.getString(strSql);
+                    //}
+
+         
+
+
+            
+
+                }
+                return Ok("ok");
+
+            }
+            catch (Exception ex)
+            {
+
+                var json = new JavaScriptSerializer().Serialize(ex.Message);
+                return Ok(json);
+            }   
+        }
+
+                  
+
+
+          
+           
+
     }
 }
