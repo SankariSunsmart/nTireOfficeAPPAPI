@@ -3261,76 +3261,76 @@ namespace MobileAppAPI.Controllers
                 {
 
 
-                    if (data.FUNCTIONIDM.ToString() == "0" || data.FUNCTIONIDM.ToString() == "" || data.FUNCTIONIDM.ToString() == string.Empty || data.FUNCTIONIDM.ToString() == null)
-                    {
-                        data.FUNCTIONIDM = "0";
-                    }
+                    //if (data.FUNCTIONIDM.ToString() == "0" || data.FUNCTIONIDM.ToString() == "" || data.FUNCTIONIDM.ToString() == string.Empty || data.FUNCTIONIDM.ToString() == null)
+                    //{
+                    //    data.FUNCTIONIDM = "0";
+                    //}
 
-                    if (data.BRANCHM.ToString() == "0" || data.BRANCHM.ToString() == "" || data.BRANCHM.ToString() == string.Empty || data.BRANCHM.ToString() == null)
-                    {
-                        data.BRANCHM = "0";
-                    }
-                    if (data.MRSCODEM.ToString() == "0" || data.MRSCODEM.ToString() == "" || data.MRSCODEM.ToString() == string.Empty || data.MRSCODEM.ToString() == null)
-                    {
-                        data.MRSCODEM = "0";
-                    }
-
-
-
-
-                    if (data.ITEMCODEM.ToString() == "0" || data.ITEMCODEM.ToString() == "" || data.ITEMCODEM.ToString() == string.Empty || data.ITEMCODEM.ToString() == null)
-                    {
-                        data.ITEMCODEM = "0";
-                    }
+                    //if (data.BRANCHM.ToString() == "0" || data.BRANCHM.ToString() == "" || data.BRANCHM.ToString() == string.Empty || data.BRANCHM.ToString() == null)
+                    //{
+                    //    data.BRANCHM = "0";
+                    //}
+                    //if (data.MRSCODEM.ToString() == "0" || data.MRSCODEM.ToString() == "" || data.MRSCODEM.ToString() == string.Empty || data.MRSCODEM.ToString() == null)
+                    //{
+                    //    data.MRSCODEM = "0";
+                    //}
 
 
 
-                    if (data.DATEFROMM.ToString() == "0" || data.DATEFROMM.ToString() == "" || data.DATEFROMM.ToString() == string.Empty || data.DATEFROMM.ToString() == null)
-                    {
-                        data.DATEFROMM = "0";
-                    }
 
-                    if (data.DATETOM.ToString() == "0" || data.DATETOM.ToString() == "" || data.DATETOM.ToString() == string.Empty || data.DATETOM.ToString() == null)
-                    {
-                        data.DATETOM = "0";
-                    }
-                    if (data.STATUSM.ToString() == "0" || data.STATUSM.ToString() == "" || data.STATUSM.ToString() == string.Empty || data.STATUSM.ToString() == null)
-                    {
-                        data.STATUSM = "0";
-                    }
-                    if (data.CUTSTATUSM.ToString() == "0" || data.CUTSTATUSM.ToString() == "" || data.CUTSTATUSM.ToString() == string.Empty || data.CUTSTATUSM.ToString() == null)
-                    {
-                        data.CUTSTATUSM = "0";
-                    }
-                    if (data.MENUIDM.ToString() == "0" || data.MENUIDM.ToString() == "" || data.MENUIDM.ToString() == string.Empty || data.MENUIDM.ToString() == null)
-                    {
-                        data.MENUIDM = "0";
-                    }
-                    if (data.PAGEINDEXM.ToString() == "0" || data.PAGEINDEXM.ToString() == "" || data.PAGEINDEXM.ToString() == string.Empty || data.PAGEINDEXM.ToString() == null)
-                    {
-                        data.PAGEINDEXM = 0;
-                    }
-                    if (data.PAGESIZEM.ToString() == "0" || data.PAGESIZEM.ToString() == "" || data.PAGESIZEM.ToString() == string.Empty || data.PAGESIZEM.ToString() == null)
-                    {
-                        data.PAGESIZEM = 0;
-                    }
-                    if (data.SORTEXPRESSIONM.ToString() == "0" || data.SORTEXPRESSIONM.ToString() == "" || data.SORTEXPRESSIONM.ToString() == string.Empty || data.SORTEXPRESSIONM.ToString() == null)
-                    {
-                        data.SORTEXPRESSIONM = "0";
-                    }
+                    //if (data.ITEMCODEM.ToString() == "0" || data.ITEMCODEM.ToString() == "" || data.ITEMCODEM.ToString() == string.Empty || data.ITEMCODEM.ToString() == null)
+                    //{
+                    //    data.ITEMCODEM = "0";
+                    //}
 
-                    if (data.ALPHANAMEM.ToString() == "0" || data.ALPHANAMEM.ToString() == "" || data.ALPHANAMEM.ToString() == string.Empty || data.ALPHANAMEM.ToString() == null)
-                    {
-                        data.ALPHANAMEM = "0";
-                    }
-                    if (data.USERTYPEM.ToString() == "0" || data.USERTYPEM.ToString() == "" || data.USERTYPEM.ToString() == string.Empty || data.USERTYPEM.ToString() == null)
-                    {
-                        data.USERTYPEM = "0";
-                    }
-                    if (data.USERIDM.ToString() == "0" || data.USERIDM.ToString() == "" || data.USERIDM.ToString() == string.Empty || data.USERIDM.ToString() == null)
-                    {
-                        data.USERIDM = "0";
-                    }
+
+
+                    //if (data.DATEFROMM.ToString() == "0" || data.DATEFROMM.ToString() == "" || data.DATEFROMM.ToString() == string.Empty || data.DATEFROMM.ToString() == null)
+                    //{
+                    //    data.DATEFROMM = "0";
+                    //}
+
+                    //if (data.DATETOM.ToString() == "0" || data.DATETOM.ToString() == "" || data.DATETOM.ToString() == string.Empty || data.DATETOM.ToString() == null)
+                    //{
+                    //    data.DATETOM = "0";
+                    //}
+                    //if (data.STATUSM.ToString() == "0" || data.STATUSM.ToString() == "" || data.STATUSM.ToString() == string.Empty || data.STATUSM.ToString() == null)
+                    //{
+                    //    data.STATUSM = "0";
+                    //}
+                    //if (data.CUTSTATUSM.ToString() == "0" || data.CUTSTATUSM.ToString() == "" || data.CUTSTATUSM.ToString() == string.Empty || data.CUTSTATUSM.ToString() == null)
+                    //{
+                    //    data.CUTSTATUSM = "0";
+                    //}
+                    //if (data.MENUIDM.ToString() == "0" || data.MENUIDM.ToString() == "" || data.MENUIDM.ToString() == string.Empty || data.MENUIDM.ToString() == null)
+                    //{
+                    //    data.MENUIDM = "0";
+                    //}
+                    //if (data.PAGEINDEXM.ToString() == "0" || data.PAGEINDEXM.ToString() == "" || data.PAGEINDEXM.ToString() == string.Empty || data.PAGEINDEXM.ToString() == null)
+                    //{
+                    //    data.PAGEINDEXM = 0;
+                    //}
+                    //if (data.PAGESIZEM.ToString() == "0" || data.PAGESIZEM.ToString() == "" || data.PAGESIZEM.ToString() == string.Empty || data.PAGESIZEM.ToString() == null)
+                    //{
+                    //    data.PAGESIZEM = 0;
+                    //}
+                    //if (data.SORTEXPRESSIONM.ToString() == "0" || data.SORTEXPRESSIONM.ToString() == "" || data.SORTEXPRESSIONM.ToString() == string.Empty || data.SORTEXPRESSIONM.ToString() == null)
+                    //{
+                    //    data.SORTEXPRESSIONM = "0";
+                    //}
+
+                    //if (data.ALPHANAMEM.ToString() == "0" || data.ALPHANAMEM.ToString() == "" || data.ALPHANAMEM.ToString() == string.Empty || data.ALPHANAMEM.ToString() == null)
+                    //{
+                    //    data.ALPHANAMEM = "0";
+                    //}
+                    //if (data.USERTYPEM.ToString() == "0" || data.USERTYPEM.ToString() == "" || data.USERTYPEM.ToString() == string.Empty || data.USERTYPEM.ToString() == null)
+                    //{
+                    //    data.USERTYPEM = "0";
+                    //}
+                    //if (data.USERIDM.ToString() == "0" || data.USERIDM.ToString() == "" || data.USERIDM.ToString() == string.Empty || data.USERIDM.ToString() == null)
+                    //{
+                    //    data.USERIDM = "0";
+                    //}
 
 
                     DataSet dsuserdetails = new DataSet();
@@ -3353,10 +3353,10 @@ namespace MobileAppAPI.Controllers
                     cmd.Parameters.AddWithValue("@MENUID", data.MENUIDM);
                     cmd.Parameters.AddWithValue("@PAGEINDEX", data.PAGEINDEXM);
                     cmd.Parameters.AddWithValue("@PAGESIZE", data.PAGESIZEM);
-                    cmd.Parameters.AddWithValue("@SORTEXPRESSION", data.SORTEXPRESSIONM);
+                    cmd.Parameters.AddWithValue("@SORTEXPRESSION", "mrs_code");
                     cmd.Parameters.AddWithValue("@ALPHANAME", data.ALPHANAMEM);
-                    cmd.Parameters.AddWithValue("@USERTYPE", data.USERTYPEM);
-                    cmd.Parameters.AddWithValue("@USERID", data.USERIDM);
+                    cmd.Parameters.AddWithValue("@USERTYPE", "1");
+                    cmd.Parameters.AddWithValue("@USERID", "1");
 
 
 
