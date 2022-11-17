@@ -1986,8 +1986,7 @@ namespace MobileAppAPI.Controllers
         [Route("searchRFQLists")]
         public async Task<ActionResult<ERP>> searchRFQLists(ERP data)
         {
-            // string struser = data.user_lower;
-
+           // EXEC ERP_RFQ_getvendorevaluationRFQ '1','','','','','','','','','P','2','0','20','prs_id DESC','','286','1'
             List<ERP> Logdata = new List<ERP>();
             string Logdata1 = string.Empty;
             var logdata = "";
@@ -2004,7 +2003,7 @@ namespace MobileAppAPI.Controllers
 
                     DataSet dsuserdetails = new DataSet();
                     dbConn.Open();
-                    string sql = "ERP_RFQ_getvendorevaluationRFQ";
+                    string sql = "MBLE_ERP_RFQ_getvendorevaluationRFQ";
                     SqlCommand cmd = new SqlCommand(sql, dbConn);
 
 
@@ -7623,9 +7622,9 @@ namespace MobileAppAPI.Controllers
             return Logdata1;
         }
 
-        //Purchase Payment search
 
         //EXEC ERP_PO_ORDER_SUMMARY '1','1','','','','','A','','1','286','0','20','po_id desc','',''
+        //Purchase Payment search sankari
 
         [HttpGet]
         [Route("purchase_payment_summary/{BRANCHID}/{FUNCTIONID}/{PONUMBER}/{VENDORCODE}/{FROMDATE}/{TODATE}/{STATUS}")]
@@ -7740,6 +7739,48 @@ namespace MobileAppAPI.Controllers
                 return Logdata1;
             }
         }
+
+
+        //Autocompletion vendor code sang
+        [HttpGet]
+        [Route("getvendorcode/{code}")]
+        public string getvendorcode(string code)
+        {
+
+
+
+            string Logdata1 = string.Empty;
+
+            using (SqlConnection dbConn = new SqlConnection(strconn))
+            {
+                dbConn.Open();
+                string query = "";
+                query = "SELECT  vendor_code as VENDOR_CODE FROM erp_vendor_master WHERE STATUS='A' AND VENDOR_CODE LIKE '%" + code + "%' ";
+
+                SqlCommand cmd = new SqlCommand(query, dbConn);
+                var reader = cmd.ExecuteReader();
+                System.Data.DataTable results = new System.Data.DataTable();
+                results.Load(reader);
+                if (results.Rows.Count == 0)
+                {
+                    string st = "No data found";
+
+                    Logdata1 = new JavaScriptSerializer().Serialize(st);
+                }
+                else
+                {
+                    Logdata1 = DataTableToJSONWithStringBuilder(results);
+                }
+
+                dbConn.Close();
+
+                var result = (new { recordsets = Logdata1 });
+
+            }
+            return (Logdata1);
+        }
+
+
 
 
 
